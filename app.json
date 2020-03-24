@@ -1,13 +1,24 @@
 {
   "expo": {
-    "sdkVersion": "33.0.0",
     "name": "ActivityFeedShowcase",
     "slug": "react-native-activity-feed-showcase",
+    "privacy": "public",
+    "version": "0.1.0",
+    "sdkVersion": "36.0.0",
+    "orientation": "portrait",
+    "platforms": ["ios", "android", "web"],
+    "icon": "./images/app-icon.png",
     "splash": {
       "image": "./images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "icon": "https://cdn.dribbble.com/users/5912/screenshots/1300524/attachments/181387/io7-isome-icon-P.png"
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    }
   }
 }

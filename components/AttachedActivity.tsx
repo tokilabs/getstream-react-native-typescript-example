@@ -1,11 +1,10 @@
-// @flow
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import type { ActivityData } from '../types';
 
 type Props = {
-  activity: ActivityData,
+  activity: ActivityData;
 };
 
 const AttachedActivity = ({ activity }: Props) => {

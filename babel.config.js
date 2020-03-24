@@ -2,8 +2,13 @@ module.exports = function(api) {
   api.cache(true);
   return {
     presets: ['babel-preset-expo'],
-    plugins: [["babel-plugin-dotenv", {
-      "replacedModuleName": "babel-dotenv"
-    }]]
+    plugins: [
+      [
+        "babel-plugin-dotenv",
+        {
+          "replacedModuleName": "babel-dotenv"
+        }
+      ]
+    ]
   };
 };

@@ -5,15 +5,14 @@ import { ScrollView, StatusBar } from 'react-native';
 import ProfileHeader from '../components/ProfileHeader';
 import Button from '../components/Button';
 import { FlatFeed } from 'expo-activity-feed';
-import type { NavigationScreen } from 'expo-activity-feed';
-import type { NavigationEventSubscription } from 'react-navigation';
 
-type Props = {|
-  navigation: NavigationScreen,
-|};
+import { StackNavScreenProps } from '../navigation/stacks';
+
+type Props = StackNavScreenProps<'Profile'> & {};
 
 export default class ProfileScreen extends React.Component<Props> {
-  _navListener: NavigationEventSubscription;
+  _navListener: any;
+
   static navigationOptions = ({ navigation }: Props) => ({
     headerStyle: {
       backgroundColor: 'transparent',
@@ -29,7 +28,7 @@ export default class ProfileScreen extends React.Component<Props> {
   });
 
   componentDidMount() {
-    this._navListener = this.props.navigation.addListener('didFocus', () => {
+    this._navListener = this.props.navigation.addListener('focus', () => {
       StatusBar.setBarStyle('light-content');
     });
   }

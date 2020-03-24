@@ -2,27 +2,15 @@
 import React from 'react';
 import { SafeAreaView, View, StyleSheet } from 'react-native';
 
-import {
-  SinglePost,
-  CommentBox,
-  BackButton,
-  Activity,
-  LikeButton,
-  ReactionIcon,
-  CommentList,
-  LikeList,
-} from 'expo-activity-feed';
-
-import RepostList from '../components/RepostList';
+import { SinglePost, CommentBox, BackButton, Activity, LikeButton, ReactionIcon, CommentList, LikeList } from 'expo-activity-feed';
 
 import type { UserResponse } from '../types';
-import type { NavigationScreen } from 'expo-activity-feed';
 
 import ReplyIcon from '../images/icons/reply.png';
 
-type Props = {|
-  navigation: NavigationScreen,
-|};
+import { StackNavScreenProps } from '../navigation/stacks';
+
+type Props = StackNavScreenProps<'SinglePost'> & {};
 
 export default class SinglePostScreen extends React.Component<Props> {
   static navigationOptions = ({ navigation }: Props) => ({
@@ -39,10 +27,10 @@ export default class SinglePostScreen extends React.Component<Props> {
   });
 
   render() {
-    const { navigation } = this.props;
-    const activity = navigation.getParam('activity');
-    const feedGroup = navigation.getParam('feedGroup');
-    const userId = navigation.getParam('userId');
+    const { navigation, route } = this.props;
+    const activity = route.params?.activity;
+    const feedGroup = route.params?.feedGroup;
+    const userId = route.params?.userId;
     return (
       <SafeAreaView style={styles.container}>
         <SinglePost
@@ -50,7 +38,7 @@ export default class SinglePostScreen extends React.Component<Props> {
           feedGroup={feedGroup}
           userId={userId}
           navigation={this.props.navigation}
-          Activity={(props) => console.log(props.activity.id) || (
+          Activity={(props) => (
             <React.Fragment>
               <Activity
                 {...props}
@@ -72,11 +60,7 @@ export default class SinglePostScreen extends React.Component<Props> {
 
               <View style={styles.sectionHeader} />
               <View style={styles.likesContainer}>
-                <LikeList
-                  activityId={props.activity}
-                  reactions={props.activity.latest_reactions}
-                  reactionKind="heart"
-                />
+                <LikeList activityId={props.activity} reactions={props.activity.latest_reactions} reactionKind="heart" />
               </View>
             </React.Fragment>
           )}
@@ -89,8 +73,7 @@ export default class SinglePostScreen extends React.Component<Props> {
                   })
                 }
                 avatarProps={{
-                  source: (userData: UserResponse) =>
-                    userData.data.profileImage,
+                  source: (userData: UserResponse) => userData.data.profileImage,
                 }}
                 styles={{ container: { height: 78 } }}
               />
@@ -107,4 +90,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
   },
+  sectionHeader: {},
+  likesContainer: {},
 });

@@ -6,13 +6,7 @@ const HorizontalScrollView = ({ renderItem, keyExtractor, data }) => {
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <FlatList
-          style={styles.innerScroll}
-          horizontal
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={keyExtractor}
-        />
+        <FlatList style={styles.innerScroll} horizontal data={data} renderItem={renderItem} keyExtractor={keyExtractor} />
       </ScrollView>
     </View>
   );

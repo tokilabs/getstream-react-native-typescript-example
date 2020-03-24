@@ -5,6 +5,13 @@
   "author": {
     "company": "Stream.io Inc"
   },
+  "contributors": [
+    {
+      "name": "Saulo Vallory",
+      "email": "saulo@toki.network",
+      "company": "Toki Network"
+    }
+  ],
   "keywords": [
     "feed",
     "newsfeed",
@@ -12,33 +19,14 @@
     "react native",
     "notification feed"
   ],
-  "devDependencies": {
-    "@babel/core": "^7.7.4",
-    "@babel/node": "^7.7.4",
-    "@babel/plugin-proposal-decorators": "^7.7.4",
-    "babel-node": "0.0.1-security",
-    "babel-plugin-dotenv": "^0.1.1",
-    "babel-preset-expo": "^5.1.1",
-    "dotenv": "^6.0.0",
-    "eslint": "^5.1.0",
-    "eslint-plugin-flowtype": "^2.29.1",
-    "eslint-plugin-jest": "^21.17.0",
-    "eslint-plugin-react": "^7.10.0",
-    "flow-bin": "^0.80.0",
-    "flow-copy-source": "^2.0.2",
-    "jest-expo": "~33.0.0",
-    "metro-react-native-babel-preset": "^0.54.1",
-    "prettier": "^1.13.7",
-    "react-native-scripts": "1.14.0",
-    "react-test-renderer": "16.3.1"
-  },
-  "main": "./index.js",
+  "main": "./index.ts",
   "scripts": {
     "build": "rm -rf lib && babel '*.js' components mock --out-dir  lib && cp -R ./images/ lib/ && flow-copy-source src lib",
-    "start": "react-native-scripts start",
-    "eject": "react-native-scripts eject",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
+    "start": "expo start",
+    "eject": "expo eject",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
     "eslint": "eslint '**/*.js' --max-warnings 0",
     "flow": "flow",
     "prettier": "prettier --list-different '**/*.{js,ts}'",
@@ -51,15 +39,47 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "expo": "^33.0.0",
-    "expo-activity-feed": "^0.8.8",
-    "expo-keep-awake": "~5.0.1",
+    "@react-native-community/async-storage": "^1.8.1",
+    "@react-native-community/masked-view": "0.1.5",
+    "@react-navigation/bottom-tabs": "^5.2.3",
+    "@react-navigation/native": "^5.1.2",
+    "@react-navigation/stack": "^5.2.4",
+    "expo": "~36.0.0",
+    "expo-activity-feed": "^0.8.22",
+    "expo-keep-awake": "~8.0.0",
+    "expo-linear-gradient": "~8.0.0",
     "faker": "^4.1.0",
+    "getstream": "^4.4.0",
     "numeral": "^2.0.6",
-    "react": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react": "^16.13.1",
+    "react-dom": "~16.13.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-activity-feed": "^0.8.22",
     "react-native-dotenv": "^0.2.0",
-    "react-native-keyboard-aware-scroll-view": "^0.5.0",
-    "react-navigation": "^2.3.1"
+    "react-native-gesture-handler": "~1.5.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.1",
+    "react-native-reanimated": "~1.4.0",
+    "react-native-safe-area-context": "0.6.0",
+    "react-native-screens": "2.0.0-alpha.12",
+    "react-native-web": "0.11.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/node": "^7.7.4",
+    "@babel/plugin-proposal-decorators": "^7.7.4",
+    "@types/react": "~16.9.0",
+    "@types/react-native": "~0.61.23",
+    "babel-node": "0.0.1-security",
+    "babel-plugin-dotenv": "^0.1.1",
+    "babel-preset-expo": "~8.0.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-react": "^7.10.0",
+    "jest-expo": "^36.0.1",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "prettier": "^2.0.1",
+    "react-test-renderer": "^16.13.1",
+    "typescript": "~3.8.3"
   }
 }

@@ -2,30 +2,29 @@
 
 import React from 'react';
 import { View, Text, StyleSheet, StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { StreamApp } from 'expo-activity-feed';
 import Count from './Count';
 import { Avatar } from 'expo-activity-feed';
 import CoverImage from './CoverImage';
-import type { FollowCounts } from 'getstream';
+
 import type { AppCtx } from 'expo-activity-feed';
 import type { UserData } from '../types';
 
 type Props = {};
 
 export default function ProfileHeader(props: Props) {
-  return (
-    <StreamApp.Consumer>
-      {(appCtx) => <ProfileHeaderInner {...props} {...appCtx} />}
-    </StreamApp.Consumer>
-  );
+  return <StreamApp.Consumer>{(appCtx) => <ProfileHeaderInner {...props} {...appCtx} />}</StreamApp.Consumer>;
 }
 
 type PropsInner = Props & AppCtx<UserData>;
 
 type State = {
-  user: FollowCounts,
+  user: {
+    following_count: number;
+    followers_count: number;
+  };
 };
 
 class ProfileHeaderInner extends React.Component<PropsInner, State> {
@@ -47,14 +46,13 @@ class ProfileHeaderInner extends React.Component<PropsInner, State> {
 
   render() {
     let { following_count, followers_count } = this.state.user;
-    let { name, url, desc, profileImage, coverImage } =
-      this.props.userData || {};
+    let { name, url, desc, profileImage, coverImage } = this.props.userData || {};
 
     coverImage ? StatusBar.setBarStyle('light-content', true) : null;
 
     return (
       <SafeAreaView style={[styles.profileHeader]}>
-        {coverImage ? <CoverImage source={coverImage} /> : null}
+        {coverImage && <CoverImage source={coverImage} />}
 
         <View style={[styles.mainSection]}>
           <View style={styles.userDetails}>

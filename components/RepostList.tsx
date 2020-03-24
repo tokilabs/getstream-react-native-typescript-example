@@ -7,7 +7,8 @@ import RepostItem from './RepostItem';
 import type { ReactionMap } from '../types';
 
 type Props = {
-  reactions: ?ReactionMap,
+  reactions: ReactionMap;
+  activityId?: any;
 };
 
 const RepostList = ({ reactions, activityId }: Props) => {

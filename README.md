@@ -4,6 +4,41 @@ A mobile application built using React Native, [Stream.io](https://getstream.io/
 
 ![screenshots of example app](/images/screenshots@2x.png)
 
+## Changes from the original example
+
+- **Typescript version:** `3.8.3`
+
+- Removed `react-native-scripts` in favor of `expo` commands
+
+- Added support for web platform (run `yarn web`)
+
+### Package Upgrades
+
+#### Dependencies
+
+| Package           | Old Version | New Version |
+| ----------------- | ----------- | ----------- |
+| expo              | 33.0.0      | ~36.0.0     |
+| React             | 16.8.3      | ~16.13.1    |
+| React Native      | 0.59.8      | 0.61.4      |
+| React Navigation  | 2.3.1       | ^5.1.2      |
+| getstream         | 4.2.2       | 4.4.0       |
+| babel-preset-expo | ^5.1.1      | ~8.0.0      |
+| eslint            | ^5.1.0      | ^6.8.0      |
+
+### New Packages
+
+- @react-native-community/**async-storage**: `^1.8.1`
+- @react-native-community/**masked-view**: `0.1.5`
+- expo-linear-gradient: `~8.0.0`
+- react-native-reanimated: `~1.4.0`
+- react-native-safe-area-context: `^0.7.3`
+- react-native-screens: `2.0.0-alpha.12`
+- react-dom: `~16.13.1`
+- react-native-activity-feed: `^0.8.22`
+- react-native-gesture-handler: `~1.5.0`
+- react-native-web: `0.11.7`
+
 ## Features
 
 - Flat feed

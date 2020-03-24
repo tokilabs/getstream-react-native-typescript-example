@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StatusBar, Image, ScrollView, FlatList } from 'react-native';
+import { View, StatusBar, Image, ScrollView, FlatList, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import LargeHeading from '../components/LargeHeading';
 import HorizontalScrollFeed from '../components/HorizontalScrollFeed';
@@ -7,7 +8,26 @@ import { Avatar, UserCard } from 'expo-activity-feed';
 import GroupCard from '../components/GroupCard';
 import SearchBox from '../components/SearchBox';
 
-class SearchScreen extends React.Component {
+import { StackNavScreenProps } from '../navigation/stacks';
+
+type SearchScreenProps = StackNavScreenProps<'Search'> & {};
+
+type UserInfo = {
+  id: number;
+  name?: string;
+  user_image: string;
+  followed?: boolean;
+};
+
+type SearchScreenState = {
+  trendingGroups: any;
+  interestingUsers: UserInfo[];
+  users: UserInfo[];
+};
+
+class SearchScreen extends React.Component<SearchScreenProps, SearchScreenState> {
+  _navListener: any;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -45,8 +65,7 @@ class SearchScreen extends React.Component {
         {
           id: 1234,
           name: 'Beer',
-          image:
-            'https://cdn.britannica.com/700x450/72/186972-049-26ACDCBE.jpg',
+          image: 'https://cdn.britannica.com/700x450/72/186972-049-26ACDCBE.jpg',
           icon: '',
         },
         {
@@ -58,8 +77,7 @@ class SearchScreen extends React.Component {
         {
           id: 3456,
           name: 'Nature',
-          image:
-            'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350',
+          image: 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350',
           icon: '',
         },
         { id: 4567, image: '', icon: '' },
@@ -122,74 +140,72 @@ class SearchScreen extends React.Component {
     },
     headerLeft: (
       <View style={{ paddingLeft: 15 }}>
-        <Image
-          source={require('../images/icons/categories.png')}
-          style={{ width: 23, height: 23 }}
-        />
+        <Image source={require('../images/icons/categories.png')} style={{ width: 23, height: 23 }} />
       </View>
     ),
     headerRight: (
       <View style={{ paddingRight: 15 }}>
-        <Image
-          source={require('../images/icons/post.png')}
-          style={{ width: 23, height: 23 }}
-        />
+        <Image source={require('../images/icons/post.png')} style={{ width: 23, height: 23 }} />
       </View>
     ),
   });
 
   componentDidMount() {
-    this._navListener = this.props.navigation.addListener('didFocus', () => {
+    this._navListener = this.props.navigation.addListener('focus', () => {
       StatusBar.setBarStyle('dark-content');
     });
   }
 
   render() {
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
-        <SearchBox />
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.container}>
+          <SearchBox />
 
-        <LargeHeading>Trending Groups</LargeHeading>
-        <HorizontalScrollFeed
-          data={this.state.trendingGroups}
-          renderItem={({ item }) => (
-            <View style={{ marginRight: 6 }}>
-              <GroupCard item={item} />
-            </View>
-          )}
-          keyExtractor={(item) => `item-${item.id}`}
-        />
+          <LargeHeading>Trending Groups</LargeHeading>
+          <HorizontalScrollFeed
+            data={this.state.trendingGroups}
+            renderItem={({ item }) => (
+              <View style={{ marginRight: 6 }}>
+                <GroupCard item={item} />
+              </View>
+            )}
+            keyExtractor={(item) => `item-${item.id}`}
+          />
 
-        <LargeHeading>Interesting Users</LargeHeading>
-        <HorizontalScrollFeed
-          data={this.state.interestingUsers}
-          renderItem={({ item }) => (
-            <View style={{ marginRight: 6 }}>
-              <Avatar size={60} noShadow source={item.user_image} />
-            </View>
-          )}
-          keyExtractor={(item) => `item-${item.id}`}
-        />
+          <LargeHeading>Interesting Users</LargeHeading>
+          <HorizontalScrollFeed
+            data={this.state.interestingUsers}
+            renderItem={({ item }) => (
+              <View style={{ marginRight: 6 }}>
+                <Avatar size={60} noShadow source={item.user_image} />
+              </View>
+            )}
+            keyExtractor={(item) => `item-${item.id}`}
+          />
 
-        <LargeHeading>People you may know</LargeHeading>
-        <FlatList
-          style={{ marginTop: 15 }}
-          data={this.state.users}
-          renderItem={({ item }) => (
-            <View style={{ marginLeft: 15, marginRight: 15, marginBottom: 15 }}>
-              <UserCard
-                username={'UserName'}
-                subtitle={'@subtitle'}
-                user={item}
-                follow
-              />
-            </View>
-          )}
-          keyExtractor={(item) => `item-${item.id}`}
-        />
-      </ScrollView>
+          <LargeHeading>People you may know</LargeHeading>
+          <FlatList
+            style={{ marginTop: 15 }}
+            data={this.state.users}
+            renderItem={({ item }) => (
+              <View style={{ marginLeft: 15, marginRight: 15, marginBottom: 15 }}>
+                <UserCard username={'UserName'} subtitle={'@subtitle'} user={item} follow />
+              </View>
+            )}
+            keyExtractor={(item) => `item-${item.id}`}
+          />
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+});
 
 export default SearchScreen;

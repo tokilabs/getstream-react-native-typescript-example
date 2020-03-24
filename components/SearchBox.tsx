@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Image, TextInput, StyleSheet, Animated } from 'react-native';
+import { View, Image, TextInput, StyleSheet, Animated, Text } from 'react-native';
 
-class SearchBox extends React.Component {
+export class SearchBox extends React.Component {
   state = {
     fadeAnim: new Animated.Value(1),
     text: '',
@@ -13,6 +13,7 @@ class SearchBox extends React.Component {
       duration: 200,
     }).start();
   };
+
   _fadeInPlaceholder = () => {
     if (this.state.text === '') {
       Animated.timing(this.state.fadeAnim, {
@@ -28,11 +29,7 @@ class SearchBox extends React.Component {
     return (
       <View style={styles.searchbox}>
         <Animated.Text style={[styles.placeholder, { opacity: fadeAnim }]}>
-          <Image
-            source={require('../images/icons/ios-search.png')}
-            style={{ width: 14, height: 14, top: 4 }}
-          />{' '}
-          Search
+          <Image source={require('../images/icons/ios-search.png')} style={{ width: 14, height: 14, top: 4 }} /> Search
         </Animated.Text>
         <TextInput
           onFocus={this._fadeOutPlaceholder}

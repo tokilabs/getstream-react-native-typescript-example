@@ -3,22 +3,28 @@ import React from 'react';
 import { StatusBar, Text, TouchableOpacity } from 'react-native';
 import EditProfileForm from '../components/EditProfileForm';
 import { BackButton } from 'expo-activity-feed';
-import type { NavigationScreen } from 'expo-activity-feed';
-import type { NavigationEventSubscription } from 'react-navigation';
 
-type Props = {|
-  navigation: NavigationScreen,
-|};
+import type {
+  NavigationProp,
+  EventListenerCallback,
+  EventMapCore,
+  NavigationState,
+} from '@react-navigation/native';
+
+type Props = {
+  navigation: NavigationProp<{}>;
+  route: any;
+};
 
 export default class EditProfileScreen extends React.Component<Props> {
-  _navListener: NavigationEventSubscription;
+  _navListener: EventListenerCallback<EventMapCore<NavigationState>, 'focus'>;
 
-  static navigationOptions = ({ navigation }: Props) => ({
+  static navigationOptions = ({ navigation, route }: Props) => ({
     title: 'EDIT PROFILE',
     // TODO @Jaap: Probably Text is not the correct component here, probably
     // also good to go back to the profile page after pressing save
     headerRight: (
-      <TouchableOpacity onPress={navigation.getParam('saveFunc')}>
+      <TouchableOpacity onPress={route.params?.saveFunc}>
         <Text>Save</Text>
       </TouchableOpacity>
     ),
@@ -34,7 +40,7 @@ export default class EditProfileScreen extends React.Component<Props> {
   });
 
   componentDidMount() {
-    this._navListener = this.props.navigation.addListener('didFocus', () => {
+    this._navListener = this.props.navigation.addListener('focus', () => {
       StatusBar.setBarStyle('dark-content');
     });
   }
